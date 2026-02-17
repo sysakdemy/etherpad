@@ -1,5 +1,9 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
+annotations:
+  cert-manager.io/cluster-issuer: "letsencrypt-prod"
+  traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+  traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd
 metadata:
   name: pad
   namespace: pad
