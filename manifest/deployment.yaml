@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pad
+  labels:
+    workload.user.cattle.io/workloadselector: apps.deployment-pad-pad
+    app: etherpad
+  namespace: pad
+spec:
+  selector:
+    matchLabels:
+      workload.user.cattle.io/workloadselector: apps.deployment-pad-pad
+      app: etherpad
+  template:
+    metadata:
+      labels:
+        workload.user.cattle.io/workloadselector: apps.deployment-pad-pad
+      namespace: pad
+    spec:
+      containers:
+        - env:
+            - name: ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: adminPassword
+                  name: padusers
+            - name: USER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: userPassword
+                  name: padusers
+            - name: REQUIRE_AUTHENTICATION
+              value: 'true'
+            - name: MINIFY
+              value: 'true'
+            - name: EXPOSE_VERSION
+              value: 'false'
+          image: etherpad/etherpad:2.6.1
+          imagePullPolicy: IfNotPresent
+          name: pad
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 500m
+              memory: 128Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          _init: false
+          __active: true
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
+  progressDeadlineSeconds: 600
+  replicas: 0
+  revisionHistoryLimit: 10
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate

@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pad
+  namespace: pad
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: pad.ddns.net
+      http:
+        paths:
+          - backend:
+              service:
+                name: pad
+                port:
+                  number: 80
+            path: /
+            pathType: ImplementationSpecific
