@@ -49,6 +49,14 @@ spec:
             runAsNonRoot: false
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
+          volumeMounts:
+            - name: settings
+              mountPath: /opt/etherpad-lite/settings.json
+              subPath: settings.json
+      volumes:
+        - name: settings
+          configMap:
+            name: settings
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
