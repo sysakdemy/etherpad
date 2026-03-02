@@ -3,18 +3,15 @@ kind: Deployment
 metadata:
   name: pad
   labels:
-    workload.user.cattle.io/workloadselector: apps.deployment-pad-pad
     app: etherpad
   namespace: pad
 spec:
   selector:
     matchLabels:
-      workload.user.cattle.io/workloadselector: apps.deployment-pad-pad
       app: etherpad
   template:
     metadata:
       labels:
-        workload.user.cattle.io/workloadselector: apps.deployment-pad-pad
       namespace: pad
     spec:
       containers:

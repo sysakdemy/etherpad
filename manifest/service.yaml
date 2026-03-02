@@ -7,7 +7,6 @@ metadata:
   namespace: pad
 spec:
   selector:
-    workload.user.cattle.io/workloadselector: apps.deployment-pad-pad
     app: etherpad
   internalTrafficPolicy: Cluster
   ipFamilies:
