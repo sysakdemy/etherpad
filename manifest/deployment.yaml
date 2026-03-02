@@ -13,7 +13,6 @@ spec:
     metadata:
       labels:
         app: etherpad
-      namespace: pad
     spec:
       containers:
         - env:
@@ -50,15 +49,12 @@ spec:
             runAsNonRoot: false
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
-          _init: false
-          __active: true
       dnsPolicy: ClusterFirst
-      imagePullSecrets:
       restartPolicy: Always
       schedulerName: default-scheduler
       terminationGracePeriodSeconds: 30
   progressDeadlineSeconds: 600
-  replicas: 0
+  replicas: 1
   revisionHistoryLimit: 10
   strategy:
     rollingUpdate:
