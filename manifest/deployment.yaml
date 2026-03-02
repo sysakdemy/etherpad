@@ -32,6 +32,8 @@ spec:
               value: 'true'
             - name: EXPOSE_VERSION
               value: 'false'
+            - name: SETTINGS
+              value: /opt/etherpad-lite/config/settings.json
           image: etherpad/etherpad:2.6.1
           imagePullPolicy: IfNotPresent
           name: pad
@@ -51,8 +53,7 @@ spec:
           terminationMessagePolicy: File
           volumeMounts:
             - name: settings
-              mountPath: /opt/etherpad-lite/settings.json
-              subPath: settings.json
+              mountPath: /opt/etherpad-lite/config
       volumes:
         - name: settings
           configMap:
