@@ -9,6 +9,10 @@ metadata:
     traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd
 spec:
   ingressClassName: traefik
+  tls:
+    - hosts:
+        - pad.ddns.net
+      secretName: pad-tls
   rules:
     - host: pad.ddns.net
       http:
