@@ -11,6 +11,8 @@ spec:
       app: etherpad
   template:
     metadata:
+      labels:
+        app: etherpad
       namespace: pad
     spec:
       containers:
